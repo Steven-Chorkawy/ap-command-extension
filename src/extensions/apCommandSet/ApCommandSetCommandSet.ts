@@ -40,19 +40,15 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
 
   private _RowAccessorToObject(selectedRows): Array<any> {
     let output = [];
-
     for (let rowIndex = 0; rowIndex < selectedRows.length; rowIndex++) {
       const row = selectedRows[rowIndex];
       let rowObject = {};
-
       for (let fieldIndex = 0; fieldIndex < row.fields.length; fieldIndex++) {
         const field = row.fields[fieldIndex];
         rowObject[field.internalName] = row.getValueByName(field.internalName);
       }
-
       output.push(rowObject);
     }
-
     return output;
   }
 
@@ -81,7 +77,6 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     switch (event.itemId) {
       case 'COMMAND_1':
         this._mapRows(event.selectedRows);
-
         SPDialog.alert(`${this.properties.sampleTextOne}${JSON.stringify(this._RowAccessorToObject(event.selectedRows))}`);
         break;
       case 'COMMAND_2':
