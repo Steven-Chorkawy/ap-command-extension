@@ -96,7 +96,7 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
         // d.render();
         // debugger;
 
-        const dialog: MyCustomPanel = new MyCustomPanel();
+        const dialog: MyCustomPanel = new MyCustomPanel(event.selectedRows);
         dialog.show();
 
         break;

@@ -11,9 +11,11 @@ export default class MyCustomPanel extends BaseDialog {
 
     constructor(props?) {
         super(props);
+        debugger;
     }
 
     public render(): void {
+        debugger;
         ReactDOM.render(
             <Panel
                 isLightDismiss={false}
