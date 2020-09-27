@@ -94,10 +94,8 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
         ReactDOM.render(elem, this.dialogPlaceHolder);
         break;
       case 'COMMAND_2':
-        //SPDialog.alert(`${this.properties.sampleTextTwo}`);
-        
         SPDialog.prompt('Enter:',).then(value => {
-          console.log(value);
+          SPDialog.alert(`👍${value}`);
         });
         break;
       default:
