@@ -1,3 +1,6 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import { override } from '@microsoft/decorators';
 import { Log } from '@microsoft/sp-core-library';
 import {
@@ -10,8 +13,7 @@ import { Dialog as SPDialog } from '@microsoft/sp-dialog';
 
 import * as strings from 'ApCommandSetCommandSetStrings';
 
-import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs';
-
+import MyKendoDialog from './components/MyKendoDialog';
 
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
@@ -26,7 +28,11 @@ export interface IApCommandSetCommandSetProperties {
 
 const LOG_SOURCE: string = 'ApCommandSetCommandSet';
 
+
+
 export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCommandSetCommandSetProperties> {
+
+  private dialogPlaceHolder: HTMLDivElement = null;
 
   private _mapRows(selectedRows: any): void {
     selectedRows.map(row => {
@@ -55,6 +61,10 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
   @override
   public onInit(): Promise<void> {
     Log.info(LOG_SOURCE, 'Initialized ApCommandSetCommandSet');
+
+    let el = document.createElement("div");
+    this.dialogPlaceHolder = document.body.appendChild(el);
+
     return Promise.resolve();
   }
 
@@ -77,7 +87,11 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     switch (event.itemId) {
       case 'COMMAND_1':
         this._mapRows(event.selectedRows);
-        SPDialog.alert(`${this.properties.sampleTextOne}${JSON.stringify(this._RowAccessorToObject(event.selectedRows))}`);
+        debugger;
+        //SPDialog.alert(`${this.properties.sampleTextOne}${JSON.stringify(this._RowAccessorToObject(event.selectedRows))}`);
+        const elem: React.ReactElement<any> = React.createElement(MyKendoDialog);
+        debugger;
+        ReactDOM.render(elem, this.dialogPlaceHolder);
         break;
       case 'COMMAND_2':
         SPDialog.alert(`${this.properties.sampleTextTwo}`);
