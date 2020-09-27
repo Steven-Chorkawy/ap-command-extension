@@ -15,6 +15,8 @@ import * as strings from 'ApCommandSetCommandSetStrings';
 
 import MyKendoDialog from './components/MyKendoDialog';
 
+import MyCustomPanel from './components/MyCustomPanel';
+
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
  * it will be deserialized into the BaseExtension.properties object.
@@ -31,8 +33,6 @@ const LOG_SOURCE: string = 'ApCommandSetCommandSet';
 
 
 export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCommandSetCommandSetProperties> {
-
-  private dialogPlaceHolder: HTMLElement = null;
 
   private _mapRows(selectedRows: any): void {
     selectedRows.map(row => {
@@ -61,10 +61,6 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
   @override
   public onInit(): Promise<void> {
     Log.info(LOG_SOURCE, 'Initialized ApCommandSetCommandSet');
-
-    let el = document.createElement("my-app");
-    this.dialogPlaceHolder = document.body.appendChild(el);
-
     return Promise.resolve();
   }
 
@@ -95,10 +91,13 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
         // debugger;
         // ReactDOM.render(elem, this.dialogPlaceHolder);
 
-        debugger;
-        let d = new MyKendoDialog();
-        d.render();
-        debugger;
+        // debugger;
+        // let d = new MyKendoDialog();
+        // d.render();
+        // debugger;
+
+        const dialog: MyCustomPanel = new MyCustomPanel();
+        dialog.show();
 
         break;
       case 'COMMAND_2':
