@@ -9,7 +9,7 @@ import {
   IListViewCommandSetListViewUpdatedParameters,
   IListViewCommandSetExecuteEventParameters
 } from '@microsoft/sp-listview-extensibility';
-import { Dialog as SPDialog } from '@microsoft/sp-dialog';
+import { Dialog as SPDialog, IPromptOptions } from '@microsoft/sp-dialog';
 
 import * as strings from 'ApCommandSetCommandSetStrings';
 
@@ -94,7 +94,11 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
         ReactDOM.render(elem, this.dialogPlaceHolder);
         break;
       case 'COMMAND_2':
-        SPDialog.alert(`${this.properties.sampleTextTwo}`);
+        //SPDialog.alert(`${this.properties.sampleTextTwo}`);
+        
+        SPDialog.prompt('Enter:',).then(value => {
+          console.log(value);
+        });
         break;
       default:
         throw new Error('Unknown command');
