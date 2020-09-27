@@ -32,7 +32,7 @@ const LOG_SOURCE: string = 'ApCommandSetCommandSet';
 
 export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCommandSetCommandSetProperties> {
 
-  private dialogPlaceHolder: HTMLDivElement = null;
+  private dialogPlaceHolder: HTMLElement = null;
 
   private _mapRows(selectedRows: any): void {
     selectedRows.map(row => {
@@ -62,7 +62,7 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
   public onInit(): Promise<void> {
     Log.info(LOG_SOURCE, 'Initialized ApCommandSetCommandSet');
 
-    let el = document.createElement("div");
+    let el = document.createElement("my-app");
     this.dialogPlaceHolder = document.body.appendChild(el);
 
     return Promise.resolve();
@@ -87,11 +87,19 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     switch (event.itemId) {
       case 'COMMAND_1':
         this._mapRows(event.selectedRows);
-        debugger;
+        // * Default
         //SPDialog.alert(`${this.properties.sampleTextOne}${JSON.stringify(this._RowAccessorToObject(event.selectedRows))}`);
-        const elem: React.ReactElement<any> = React.createElement(MyKendoDialog);
+
+        // ! I can't make it visible. 
+        // const elem: React.ReactElement<any> = React.createElement(MyKendoDialog);
+        // debugger;
+        // ReactDOM.render(elem, this.dialogPlaceHolder);
+
         debugger;
-        ReactDOM.render(elem, this.dialogPlaceHolder);
+        let d = new MyKendoDialog();
+        d.render();
+        debugger;
+
         break;
       case 'COMMAND_2':
         SPDialog.prompt('Enter:',).then(value => {

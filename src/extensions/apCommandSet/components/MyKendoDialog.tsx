@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs';
 
-class App extends React.Component<any,any> {
-    constructor(props) {
+export default class MyKendoDialog extends React.Component<any, any> {
+    constructor(props?) {
         super(props);
         this.state = {
             visible: true
@@ -32,7 +32,3 @@ class App extends React.Component<any,any> {
         );
     }
 }
-ReactDOM.render(
-    <App />,
-    document.querySelector('my-app')
-);
