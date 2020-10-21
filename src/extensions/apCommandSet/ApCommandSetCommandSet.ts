@@ -22,7 +22,10 @@ import "@pnp/sp/lists";
 import "@pnp/sp/items";
 import "@pnp/sp/fields";
 
+import './enums/CommandSets';
+
 import './custom.css';
+import { CommandSets } from './enums/CommandSets';
 
 
 /**
@@ -87,8 +90,8 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
   public onListViewUpdated(event: IListViewCommandSetListViewUpdatedParameters): void {
     console.log('\n\nonListViewUpdated');
     console.log(event);
-    const compareOneCommand: Command = this.tryGetCommand('COMMAND_1');
-    const compareEditCommand: Command = this.tryGetCommand('COMMAND_EDIT');
+    const compareOneCommand: Command = this.tryGetCommand(CommandSets.CommandApprove);
+    const compareEditCommand: Command = this.tryGetCommand(CommandSets.CommandEdit);
 
 
     if (compareEditCommand) {
@@ -105,10 +108,10 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     console.log('\n\nonExecute');
     console.log(event);
     switch (event.itemId) {
-      case 'COMMAND_1':
+      case CommandSets.CommandApprove:
         this._mapRows(event.selectedRows);
         break;
-      case 'COMMAND_2':
+      case CommandSets.Command2:
         sp.web.currentUser.get()
           .then(user => {
             console.log("Current User");
@@ -161,6 +164,8 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
                 window.location.href = url;
               });
           });
+        break;
+      case CommandSets.CommandEdit:
         break;
       default:
         throw new Error('Unknown command');
