@@ -1,3 +1,6 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import { override } from '@microsoft/decorators';
 import { Log } from '@microsoft/sp-core-library';
 import {
@@ -6,11 +9,11 @@ import {
   IListViewCommandSetListViewUpdatedParameters,
   IListViewCommandSetExecuteEventParameters
 } from '@microsoft/sp-listview-extensibility';
-import { Dialog as SPDialog } from '@microsoft/sp-dialog';
+import { Dialog as SPDialog, IPromptOptions } from '@microsoft/sp-dialog';
 
 import * as strings from 'ApCommandSetCommandSetStrings';
 
-import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs';
+import MyKendoDialog from './components/MyKendoDialog';
 
 import { sp } from "@pnp/sp";
 import "@pnp/sp/webs";
@@ -20,6 +23,7 @@ import "@pnp/sp/items";
 import "@pnp/sp/fields";
 
 import './custom.css';
+
 
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
@@ -33,6 +37,7 @@ export interface IApCommandSetCommandSetProperties {
 }
 
 const LOG_SOURCE: string = 'ApCommandSetCommandSet';
+
 
 
 export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCommandSetCommandSetProperties> {
@@ -97,7 +102,8 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     switch (event.itemId) {
       case 'COMMAND_1':
         this._mapRows(event.selectedRows);
-        SPDialog.alert(`${this.properties.sampleTextOne}${JSON.stringify(this._RowAccessorToObject(event.selectedRows))}`);
+       
+
         break;
       case 'COMMAND_2':
         SPDialog.alert(`${this.properties.sampleTextTwo}`)
