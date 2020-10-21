@@ -90,8 +90,8 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     const compareOneCommand: Command = this.tryGetCommand('COMMAND_1');
     if (compareOneCommand) {
       this._mapRows((event.selectedRows));
-      // This command should be hidden unless exactly one row is selected.
-      compareOneCommand.visible = event.selectedRows.length === 1;
+      // This command should be hidden unless one or more rows are selected.
+      compareOneCommand.visible = event.selectedRows.length > 0;
     }
   }
 
