@@ -102,50 +102,58 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     switch (event.itemId) {
       case 'COMMAND_1':
         this._mapRows(event.selectedRows);
-       
-
         break;
       case 'COMMAND_2':
-        SPDialog.alert(`${this.properties.sampleTextTwo}`)
-          .then(f => {
-            sp.web.currentUser.get()
-              .then(user => {
-                console.log("Current User");
-                console.log(user);
-                console.log('current web');
-                console.log(this.context.pageContext.site);
-                console.log(window.location);
-                sp.web.lists.getByTitle('Invoice Action Required').items
-                  .filter(`AssignedToId eq ${user.Id}`)
-                  .select('AR_x0020_Invoice_x0020_RequestId')
-                  .get()
-                  .then(actionsRequired => {
-                    let invoiceIds = [];
+        sp.web.currentUser.get()
+          .then(user => {
+            console.log("Current User");
+            console.log(user);
+            console.log('current web');
+            console.log(this.context.pageContext.site);
+            console.log(window.location);
 
-                    actionsRequired.map(action => {
-                      invoiceIds.push(action.AR_x0020_Invoice_x0020_RequestId);
-                    });
+            // Getting Invoice Actions that are assigned to the current user and have a status of waiting.
+            // This will get us a list of invoice request IDs that the user has not yet responded to.  
+            sp.web.lists.getByTitle('Invoice Action Required').items
+              .filter(`AssignedToId eq ${user.Id} and Response_x0020_Status eq Waiting`)
+              .select('AR_x0020_Invoice_x0020_RequestId')
+              .get()
+              .then(actionsRequired => {
+                // This array will be used to filter the invoices later.
+                let invoiceIds = [];
 
-                    console.log(invoiceIds);
-                    var filteredArray = invoiceIds.filter(function (item, pos) {
-                      return invoiceIds.indexOf(item) == pos;
-                    });
-                    console.log(filteredArray);
+                // Convert the array of objects into an array of numbers.
+                actionsRequired.map(action => {
+                  invoiceIds.push(action.AR_x0020_Invoice_x0020_RequestId);
+                });
 
-                    let queryString = '';
-                    filteredArray.map(f => {
-                      queryString.length > 0
-                        ? queryString += `%3B%23${f}`
-                        : queryString += `${f}`;
-                    });
+                console.log(invoiceIds);
 
-                    //91%3B%2392%3B%2393%3B%2394%3B%2395
-                    
-                    console.log(queryString);
-                    let url = `${window.location.pathname}?FilterFields1=ID&FilterValues1=${queryString}&FilterTypes1=Counter&viewid=75519614%2Dee29%2D4659%2Db12d%2D0f0242cf0fa8`;
-                    console.log(url);
-                    window.location.href = url;
-                  });
+                // This filters out duplicate numbers. 
+                // The reason this is done is to reduce the final length of our query string. 
+                var filteredArray = invoiceIds.filter(function (item, pos) {
+                  return invoiceIds.indexOf(item) == pos;
+                });
+
+                console.log(filteredArray);
+
+                // Build the query filter that will be used in the URL. 
+                let queryString = '';
+                filteredArray.map(f => {
+                  queryString.length > 0
+                    ? queryString += `%3B%23${f}` // This is NOT the first ID we're adding.
+                    : queryString += `${f}`;      // This IS the first ID we're adding.
+                });
+
+                console.log(queryString);
+
+                // * Note that this does not work correctly while in the debug env, but it works in prod. 
+                // TODO: Find out how to build a valid url in the debug env.
+                let url = `${window.location.pathname}?FilterFields1=ID&FilterValues1=${queryString}&FilterTypes1=Counter&viewid=75519614%2Dee29%2D4659%2Db12d%2D0f0242cf0fa8`;
+                
+                console.log(url);
+                
+                window.location.href = url;
               });
           });
         break;
