@@ -88,9 +88,14 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
     console.log('\n\nonListViewUpdated');
     console.log(event);
     const compareOneCommand: Command = this.tryGetCommand('COMMAND_1');
+    const compareEditCommand: Command = this.tryGetCommand('COMMAND_EDIT');
+
+
+    if (compareEditCommand) {
+      compareEditCommand.visible = event.selectedRows.length === 1;
+    }
+
     if (compareOneCommand) {
-      this._mapRows((event.selectedRows));
-      // This command should be hidden unless one or more rows are selected.
       compareOneCommand.visible = event.selectedRows.length > 0;
     }
   }
@@ -150,9 +155,9 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
                 // * Note that this does not work correctly while in the debug env, but it works in prod. 
                 // TODO: Find out how to build a valid url in the debug env.
                 let url = `${window.location.pathname}?FilterFields1=ID&FilterValues1=${queryString}&FilterTypes1=Counter&viewid=75519614%2Dee29%2D4659%2Db12d%2D0f0242cf0fa8`;
-                
+
                 console.log(url);
-                
+
                 window.location.href = url;
               });
           });
