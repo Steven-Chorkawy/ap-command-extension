@@ -1,0 +1,14 @@
+/*Command Set Buttons*/
+button[name="Power Apps"],
+button[name="Edit in grid view"],
+button[name="Edit"],
+button[name="New"],
+button[name="Automate"],
+/*InfoPane edit form*/
+.InfoPane-section {
+    display: none;
+}
+
+.od-DetailsPane-PrimaryPane-wrapper {
+    min-height: auto !important;
+}
