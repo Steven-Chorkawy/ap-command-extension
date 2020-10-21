@@ -115,7 +115,7 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
             // Getting Invoice Actions that are assigned to the current user and have a status of waiting.
             // This will get us a list of invoice request IDs that the user has not yet responded to.  
             sp.web.lists.getByTitle('Invoice Action Required').items
-              .filter(`AssignedToId eq ${user.Id} and Response_x0020_Status eq Waiting`)
+              .filter(`AssignedToId eq ${user.Id} and Response_x0020_Status eq 'Waiting'`)
               .select('AR_x0020_Invoice_x0020_RequestId')
               .get()
               .then(actionsRequired => {

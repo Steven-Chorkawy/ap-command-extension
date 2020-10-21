@@ -23,7 +23,7 @@
     },
     "COMMAND_2": {
       "title": { "default": "Waiting Approval" },
-      "iconImageUrl": "icons/cancel.png",
+      //"iconImageUrl": "icons/cancel.png",
       "type": "command"
     }
   }

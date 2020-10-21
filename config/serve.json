@@ -4,7 +4,7 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://claringtonnet.sharepoint.com/sites/FinanceTest/ARTest/Lists/AR%20Invoice%20Requests/All%20Items2.aspx",
+      "pageUrl": "https://claringtonnet.sharepoint.com/sites/FinanceTest/ARTest/Lists/AR%20Invoice%20Requests/All%20Items2.aspx",      
       "customActions": {
         "66eae963-5d35-4773-a574-2787e30ce4e2": {
           "location": "ClientSideExtension.ListViewCommandSet.CommandBar",
