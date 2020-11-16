@@ -166,6 +166,7 @@ export default class ApCommandSetCommandSet extends BaseListViewCommandSet<IApCo
           });
         break;
       case CommandSets.CommandEdit:
+        
         break;
       default:
         throw new Error('Unknown command');
